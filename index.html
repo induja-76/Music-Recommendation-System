@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Song Recommendation System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Find Your Next Favorite Song</h1>
+        <form method="POST">
+            <label for="songName">Enter Song Name:</label>
+            <input type="text" id="songName" name="song_name" placeholder="e.g. Shape of You" required>
+            <button type="submit">Get Recommendations</button>
+        </form>
+
+        {% if recommendations %}
+            <h2>Recommended Songs</h2>
+            <ul class="list-group">
+                {% for song in recommendations %}
+                <li class="list-group-item">
+                    <strong>{{ song['name'] }}</strong> by {{ song['artists'] }} ({{ song['year'] }})
+                </li>
+                {% endfor %}
+            </ul>
+        {% elif recommendations == [] %}
+            <p class="text-danger text-center mt-4">No recommendations found. Try another song.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
